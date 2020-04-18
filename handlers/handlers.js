@@ -98,4 +98,58 @@ class UI {
    `;
         this.expenseList.appendChild(div);
     }
+
+    //calculate total expense method
+    totalExpense() {
+        let total = 0;
+        if (this.itemList.length > 0) {
+            total = this.itemList.reduce(function (acc, curr) {
+                acc += curr.amount;
+                return acc;
+            }, 0);
+        }
+        this.expenseAmount.textContent = total;
+        return total;
+    }
+
+    // edit expense method
+    editExpense(element) {
+        let id = parseInt(element.dataset.id);
+
+        let parent = element.parentElement.parentElement.parentElement;
+        // remove from dom
+        this.expenseList.removeChild(parent);
+        //remove from list;
+        let expense = this.itemList.filter(function (item) {
+            return item.id === id;
+        });
+
+        // show value
+        this.expenseInput.value = expense[0].title;
+        this.amountInput.value = expense[0].amount;
+        // delete item
+        let tempList = this.itemList.filter(function (expense) {
+            return expense.id !== id;
+        });
+
+        this.itemList = tempList;
+        this.showBalance();
+    }
+
+    // delete expense method
+    deleteExpense(element) {
+        let id = parseInt(element.dataset.id);
+        console.log(id);
+        let parent = element.parentElement.parentElement.parentElement;
+        // remove from dom
+        this.expenseList.removeChild(parent);
+
+        // delete item
+        let tempList = this.itemList.filter(function (expense) {
+            return expense.id !== id;
+        });
+
+        this.itemList = tempList;
+        this.showBalance();
+    }
 }
