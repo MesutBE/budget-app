@@ -12,4 +12,11 @@ function eventListeners() {
         event.preventDefault();
         ui.submitExpenseForm();
     });
+    expenseList.addEventListener("click", function () {
+        if (event.target.parentElement.classList.contains("edit-icon")) {
+            ui.editExpense(event.target.parentElement);
+        } else if (event.target.parentElement.classList.contains("delete-icon")) {
+            ui.deleteExpense(event.target.parentElement);
+        }
+    });
 }
